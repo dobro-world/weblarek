@@ -8,7 +8,6 @@ export class AppApi {
       // const response = await this.baseApi.get<IProductsResponse>('/product/');
       // return response.items;
       
-      console.log('Метод getProductList вызван, но сервер не подключен');
       return [];
     } catch (error) {
       console.error('Ошибка при получении товаров:', error);
@@ -21,7 +20,6 @@ export class AppApi {
       // const response = await this.baseApi.post<IOrderResult>('/order/', order);
       // return response;
       
-      console.log('Метод postOrder вызван, но сервер не подключен', order);
       return { id: 'test-id', total: 0 };
     } catch (error) {
       console.error('Ошибка при отправке заказа:', error);

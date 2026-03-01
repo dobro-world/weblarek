@@ -5,10 +5,8 @@ export class AppApi {
 
   async getProductList(): Promise<IProduct[]> {
     try {
-      // const response = await this.baseApi.get<IProductsResponse>('/product/');
-      // return response.items;
-      
-      return [];
+      const response = await this.baseApi.get<IProductsResponse>('/product/');
+      return response.items;
     } catch (error) {
       console.error('Ошибка при получении товаров:', error);
       throw error;
@@ -17,10 +15,8 @@ export class AppApi {
 
   async postOrder(order: IOrder): Promise<IOrderResult> {
     try {
-      // const response = await this.baseApi.post<IOrderResult>('/order/', order);
-      // return response;
-      
-      return { id: 'test-id', total: 0 };
+      const response = await this.baseApi.post<IOrderResult>('/order/', order);
+      return response;
     } catch (error) {
       console.error('Ошибка при отправке заказа:', error);
       throw error;

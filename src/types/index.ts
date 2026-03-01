@@ -33,12 +33,9 @@ export interface IProductsResponse {
   total: number;
 }
 
-export interface IOrder {
-  payment: TPayment;
-  email: string;
-  phone: string;
-  address: string;
-  items: string[];
+export interface IOrder extends IBuyer {
+   items: string[];
+   total: number;
 }
 
 export interface IOrderResult {

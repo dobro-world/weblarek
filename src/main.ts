@@ -1,19 +1,17 @@
 import './scss/styles.scss';
-
 import { apiProducts } from './utils/data';
-
 import { Catalog } from './components/Models/Catalog';
 import { ShoppingCart } from './components/Models/ShoppingCart';
 import { Buyer } from './components/Models/Buyer';
 import { AppApi } from './components/Models/AppApi';
-
 import { Api } from './components/base/Api';
+import { API_URL} from './utils/constants';
 
 const catalog = new Catalog();
 const cart = new ShoppingCart();
 const buyer = new Buyer();
 
-const apiBase = new Api('https://example.com');
+const apiBase = new Api(API_URL);
 const appApi = new AppApi(apiBase);
 
 async function loadData() {
@@ -61,9 +59,75 @@ async function fetchFromServer() {
   }
 }
 
+function testBuyerValidation() {
+  //Пустой покупатель
+  console.log('\n1. Пустой покупатель:');
+  buyer.clearBuyerData();
+  console.log('Данные:', buyer.getBuyerData());
+  console.log('Результат:', buyer.validateBuyerData());
+  
+  //Только email
+  console.log('\n2. Только email:');
+  buyer.setBuyerData({ email: 'test@example.com' });
+  console.log('Данные:', buyer.getBuyerData());
+  console.log('Результат:', buyer.validateBuyerData());
+  
+  //Email и телефон
+  console.log('\n3. Email и телефон:');
+  buyer.setBuyerData({ 
+    email: 'test@example.com',
+    phone: '+71234567890' 
+  });
+  console.log('Данные:', buyer.getBuyerData());
+  console.log('Результат:', buyer.validateBuyerData());
+  
+  //Email, телефон и адрес
+  console.log('\n4. Email, телефон и адрес:');
+  buyer.setBuyerData({ 
+    email: 'test@example.com',
+    phone: '+71234567890',
+    address: 'ул. Пушкина, д. 10'
+  });
+  console.log('Данные:', buyer.getBuyerData());
+  console.log('Результат:', buyer.validateBuyerData());
+  
+  //Все поля, кроме payment
+  console.log('\n5. Все поля, кроме payment:');
+  buyer.setBuyerData({ 
+    email: 'test@example.com',
+    phone: '+71234567890',
+    address: 'ул. Пушкина, д. 10'
+    // payment отсутствует
+  });
+  console.log('Данные:', buyer.getBuyerData());
+  console.log('Результат:', buyer.validateBuyerData());
+  
+  //Только payment
+  console.log('\n6. Только payment:');
+  buyer.clearBuyerData();
+  buyer.setBuyerData({ payment: 'card' });
+  console.log('Данные:', buyer.getBuyerData());
+  console.log('Результат:', buyer.validateBuyerData());
+  
+  //Все поля полностью
+  console.log('\n7. Все поля полностью (валидные данные):');
+  buyer.setBuyerData({
+    email: 'test@example.com',
+    phone: '+71234567890',
+    payment: 'card',
+    address: 'ул. Пушкина, д. 10'
+  });
+  console.log('Данные:', buyer.getBuyerData());
+  console.log('Результат:', buyer.validateBuyerData());
+  
+}
+
 async function main() {
-  await loadData();
-  await fetchFromServer();
+  const serverProducts = await fetchFromServer();
+  
+  if (!serverProducts) {
+    await loadData();
+  }
 
   const products = catalog.getProducts();
   if (products.length >= 2) {
@@ -76,24 +140,9 @@ async function main() {
     console.log('Количество товаров:', cart.getProductCount());
   }
   
-  buyer.setBuyerData({
-    email: 'test@example.com',
-    phone: '+7-999-123-45-67',
-    payment: 'card',
-    address: 'ул. Пушкина, д. 10'
-  });
-  
-  console.log('Данные покупателя:', buyer.getBuyerData());
-  console.log('Валидация:', buyer.validateBuyerData());
-  
+  testBuyerValidation();
 }
 
 main().catch(error => {
   console.error('Ошибка:', error);
 });
-
-// Добавляем объекты в глобальную область
-(window as any).catalog = catalog;
-(window as any).cart = cart;
-(window as any).buyer = buyer;
-(window as any).appApi = appApi;

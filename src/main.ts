@@ -40,9 +40,31 @@ async function loadData() {
   return testProducts;
 }
 
+async function fetchFromServer() {
+  try {
+    const serverProducts = await appApi.getProductList(); 
+    
+    const productsToSave = serverProducts.length > 0 ? serverProducts : apiProducts.items;
+    
+    console.log('Получены товары (через AppApi):', productsToSave);
+    catalog.setProducts(productsToSave);
+    
+    console.log('товары в модели после сохранения:');
+    console.log(catalog.getProducts());
+    
+    console.log('Данные успешно загружены через AppApi и сохранены!');
+    
+    return productsToSave;
+  } catch (error) {
+    console.error('Ошибка при запросе через AppApi:');
+    return null;
+  }
+}
+
 async function main() {
   await loadData();
-  
+  await fetchFromServer();
+
   const products = catalog.getProducts();
   if (products.length >= 2) {
     cart.addProductToCart(products[0]);

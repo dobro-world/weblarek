@@ -98,3 +98,85 @@ Presenter - презентер содержит основную логику п
 `emit<T extends object>(event: string, data?: T): void` - инициализация события. При вызове события в метод передается название события и объект с данными, который будет использован как аргумент для вызова обработчика.  
 `trigger<T extends object>(event: string, context?: Partial<T>): (data: T) => void` - возвращает функцию, при вызове которой инициализируется требуемое в параметрах событие с передачей в него данных из второго параметра.
 
+### Данные
+
+#### Интерфейс IProduct
+Интерфейс IProduct описывает подробную информацию по отдельному товару.
+```
+interface IProduct {
+  id: string;
+  description: string;
+  image: string;
+  title: string;
+  category: string;
+  price: number | null;
+}
+```
+
+#### Интерфейс IBuyer 
+Интерфейс IBuyer описывает информацию по покупателю и способ оплаты.
+```
+interface IBuyer {
+  payment: TPayment;
+  email: string;
+  phone: string;
+  address: string;
+}
+```
+
+### Модели данных
+
+#### Класс Catalog
+Содержит в себе массив товаров для отоборажения на главной страницы приложения.
+
+Поля класса:
+`productsOnScreen: IProduct[]` - хранит массив всех товаров на главной странице.
+`selectedProduct: IProduct` - хранит выбранный товар на главной странице.
+
+Методы класса:
+`getProducts(): IProduct[]` - возвращает массив всех товаров.
+`setProducts(products: IProduct[]): void` - сохранение массива товаров полученного в параметрах метода.
+`getProductById(id: string): IProduct | undefined` - получение одного товара по его id. 
+`setProductDetailed(product: IProduct): void` - сохранение товара для подробного отображения.
+`getProductDetailed(): IProduct | null` - получение товара для подробного отображения.
+
+#### Класс ShoppingCart
+Содержит в себе массив товаров, выбранных покупателем для покупки.
+
+Поля класса:
+`shoppingCartProducts: IProduct[]` - хранит массив товаров, выбранных покупателем для покупки.
+
+Методы класса:
+`getProductsFromCart(): IProduct[]` - получение массива товаров, которые находятся в корзине.
+`addProductToCart(product: IProduct): void` - добавление товара, который был получен в параметре, в массив корзины.
+`removeProductFromCart(product: IProduct): void` - удаление товара, полученного в параметре из массива корзины.
+`clearCart(): void` - очистка корзины.
+`getTotalPrice(): number` - получение стоимости всех товаров в корзине.
+`getProductCount(): number` - получение количества товаров в корзине.
+`hasCartItem(id: string): boolean` - проверка наличия товара в корзине по его id, полученного в параметр метода.
+
+#### Класс Buyer
+Класс, который содержит в себе данные по покупателю и методы для проверки этих данных.
+
+Поля класса:
+`payment` - вид оплаты.
+`email` - email.
+`phone` - телефон. 
+`address` - адреc.
+
+Методы класса:
+`setBuyerData(data: Partial<IBuyer>): void` - сохранение данных в модели, позволяет сохранить одно, несколько полей.
+`getBuyerData(): IBuyer` - получение всех данных покупателя.
+`clearBuyerData(): void` - очистка данных покупателя.
+`validateBuyerData() : ValidationResult` - валидация данных, `ValidationResult` - объект с результатами валидации.
+
+### Слой коммуникации
+
+#### Класс AppApi
+Отвечает за взаимодействие с сервером "web-larёk". Использует композицию с базовым классом Api для выполнения HTTP-запросов.
+
+Поля класса:
+`baseApi: IApi` - Экземпляр базового класса Api для выполнения запросов.
+
+Методы класса:
+`getProductList(): Promise<IProduct[]>` - выполняет  запрос и возвращает массив товаров.

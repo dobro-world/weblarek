@@ -130,45 +130,45 @@ interface IBuyer {
 Содержит в себе массив товаров для отоборажения на главной страницы приложения.
 
 Поля класса:  
-`productsOnScreen: IProduct[]` - хранит массив всех товаров на главной странице.
-`selectedProduct: IProduct` - хранит выбранный товар на главной странице.
+`productsOnScreen: IProduct[]` - хранит массив всех товаров на главной странице.  
+`selectedProduct: IProduct` - хранит выбранный товар на главной странице. 
 
 Методы класса:  
-`getProducts(): IProduct[]` - возвращает массив всех товаров.
-`setProducts(products: IProduct[]): void` - сохранение массива товаров полученного в параметрах метода.
+`getProducts(): IProduct[]` - возвращает массив всех товаров. 
+`setProducts(products: IProduct[]): void` - сохранение массива товаров полученного в параметрах метода. 
 `getProductById(id: string): IProduct | undefined` - получение одного товара по его id. 
-`setProductDetailed(product: IProduct): void` - сохранение товара для подробного отображения.
-`getProductDetailed(): IProduct | null` - получение товара для подробного отображения.
+`setProductDetailed(product: IProduct): void` - сохранение товара для подробного отображения. 
+`getProductDetailed(): IProduct | null` - получение товара для подробного отображения.  
 
 #### Класс ShoppingCart
 Содержит в себе массив товаров, выбранных покупателем для покупки.
 
 Поля класса:  
-`shoppingCartProducts: IProduct[]` - хранит массив товаров, выбранных покупателем для покупки.
+`shoppingCartProducts: IProduct[]` - хранит массив товаров, выбранных покупателем для покупки.  
 
 Методы класса:  
-`getProductsFromCart(): IProduct[]` - получение массива товаров, которые находятся в корзине.
-`addProductToCart(product: IProduct): void` - добавление товара, который был получен в параметре, в массив корзины.
-`removeProductFromCart(product: IProduct): void` - удаление товара, полученного в параметре из массива корзины.
-`clearCart(): void` - очистка корзины.
-`getTotalPrice(): number` - получение стоимости всех товаров в корзине.
-`getProductCount(): number` - получение количества товаров в корзине.
-`hasCartItem(id: string): boolean` - проверка наличия товара в корзине по его id, полученного в параметр метода.
+`getProductsFromCart(): IProduct[]` - получение массива товаров, которые находятся в корзине. 
+`addProductToCart(product: IProduct): void` - добавление товара, который был получен в параметре, в массив корзины. 
+`removeProductFromCart(product: IProduct): void` - удаление товара, полученного в параметре из массива корзины. 
+`clearCart(): void` - очистка корзины.  
+`getTotalPrice(): number` - получение стоимости всех товаров в корзине. 
+`getProductCount(): number` - получение количества товаров в корзине. 
+`hasCartItem(id: string): boolean` - проверка наличия товара в корзине по его id, полученного в параметр метода.  
 
 #### Класс Buyer
 Класс, который содержит в себе данные по покупателю и методы для проверки этих данных.
 
 Поля класса:  
-`payment` - вид оплаты.
-`email` - email.
-`phone` - телефон. 
-`address` - адреc.
+`payment` - вид оплаты. 
+`email` - email.  
+`phone` - телефон.  
+`address` - адреc.  
 
 Методы класса:  
-`setBuyerData(data: Partial<IBuyer>): void` - сохранение данных в модели, позволяет сохранить одно, несколько полей.
-`getBuyerData(): IBuyer` - получение всех данных покупателя.
-`clearBuyerData(): void` - очистка данных покупателя.
-`validateBuyerData() : ValidationResult` - валидация данных, `ValidationResult` - объект с результатами валидации.
+`setBuyerData(data: Partial<IBuyer>): void` - сохранение данных в модели, позволяет сохранить одно, несколько полей.  
+`getBuyerData(): IBuyer` - получение всех данных покупателя.  
+`clearBuyerData(): void` - очистка данных покупателя. 
+`validateBuyerData() : ValidationResult` - валидация данных, `ValidationResult` - объект с результатами валидации.  
 
 ### Слой коммуникации
 
@@ -176,7 +176,7 @@ interface IBuyer {
 Отвечает за взаимодействие с сервером "web-larёk". Использует композицию с базовым классом Api для выполнения HTTP-запросов.
 
 Поля класса:  
-`baseApi: IApi` - Экземпляр базового класса Api для выполнения запросов.
+`baseApi: IApi` - Экземпляр базового класса Api для выполнения запросов.  
 
 Методы класса:  
 `getProductList(): Promise<IProduct[]>` - выполняет  запрос и возвращает массив товаров.
@@ -187,8 +187,8 @@ interface IBuyer {
 Компонент интерфейса отвечающий за изменения отрисовки корзины.
 
 Поля класса:  
-`basketButton: HtmlButtonElement` - кнопка для открытия корзины на начальной странице.
-`basketCounter: HtmlElement` - счетчик количества товаров в корзине на начальной странице.
+`basketButton: HtmlButtonElement` - кнопка для открытия корзины на начальной странице.  
+`basketCounter: HtmlElement` - счетчик количества товаров в корзине на начальной странице.  
 
 Методы класса:  
 `set counter(value: number)` - метод, который устанавливает счетчик количества товаров в корзине для отображения.
@@ -206,8 +206,8 @@ interface IBuyer {
 Модальные окно для отображения других блоков.
 
 Поля класса:  
-`closeButton: HtmlButtonElement` - поле для кнопки закрытия модального окна.
-`modalContent: HtmlElement` - поле для содержимого модального окна.
+`closeButton: HtmlButtonElement` - поле для кнопки закрытия модального окна.  
+`modalContent: HtmlElement` - поле для содержимого модального окна. 
 
 Методы класса:  
 `set content(item: HtmlElement)` - метод, который будет принимать контент.
@@ -216,8 +216,8 @@ interface IBuyer {
 Контент с успешной покупкой, который будет передаваться для отображения в модальном окне.
 
 Поля класса:  
-`orderDescription: number` - поле со списанной суммой.
-`buttonNextPurchase: HtmlButtonElement` - поле кнопки для продолжения покупок.
+`orderDescription: number` - поле со списанной суммой.  
+`buttonNextPurchase: HtmlButtonElement` - поле кнопки для продолжения покупок.  
 
 Методы класса:  
 `set total(value: number)` - метод полной суммы для списания.
@@ -226,16 +226,16 @@ interface IBuyer {
 Базовый класс для для OrderSuccess, PreviewCard и BasketCard.
 
 Поля класса:  
-`cardTitle: HtmlELement` - поле заголовка карточки.
-`cardPrice: htmlELement` - поле цены карточки.
-`cardImage: htmlImageELement` - поле изображения карточки.
-`cardCategory: htmlELement` - поле категории карточки.
+`cardTitle: HtmlELement` - поле заголовка карточки. 
+`cardPrice: htmlELement` - поле цены карточки.  
+`cardImage: htmlImageELement` - поле изображения карточки.  
+`cardCategory: htmlELement` - поле категории карточки.  
 
 Методы класса:  
-`set title(value: string)` - метод заголовка карточки.
-`set price(value: string)` - метод цены карточки.
-`set image(value: string)` - метод изображения карточки.
-`set category(value: string)` - метод категории карточки.
+`set title(value: string)` - метод заголовка карточки.  
+`set price(value: string)` - метод цены карточки. 
+`set image(value: string)` - метод изображения карточки.  
+`set category(value: string)` - метод категории карточки. 
 
 #### Класс CatalogCard
 Класс для каталога с карточками товара, который будет наследовать класс Card.
@@ -244,8 +244,8 @@ interface IBuyer {
 Класс для карточки товара при просмотра полной информации по ней, который будет наследовать класс Card.
 
 Поля класса:  
-`cardText: htmlELement` - поле с описанием карточки.
-`basketAddButton: htmlButtonElement` - поле кнопки для добавления в корзину.
+`cardText: htmlELement` - поле с описанием карточки.  
+`basketAddButton: htmlButtonElement` - поле кнопки для добавления в корзину.  
 
 Методы класса:  
 `set text(value: string)` - метод для текста описания карточки.
@@ -254,8 +254,8 @@ interface IBuyer {
 Класс для корзины с карточками, который будет наследовать класс Card.
 
 Поля класса:  
-`cardIndex: HTMLElement` - поле с индексом карточки в корзине.
-`basketButtonDelete: htmlButtonElement` - поле кнопки для удаления карточки из корзины.
+`cardIndex: HTMLElement` - поле с индексом карточки в корзине.  
+`basketButtonDelete: htmlButtonElement` - поле кнопки для удаления карточки из корзины. 
 
 Методы класса:  
 `set index(value: string)` - метод для индекса карточки в корзине.
@@ -264,43 +264,43 @@ interface IBuyer {
 Контент с корзиной товаров, который будет передаваться для отображения в модальном окне.
 
 Поля класса:  
-`listItems: htmlElement` - поле со всеми карточками в корзине.
-`total: htmlElement` - поле с полной суммой.
-`buttonMakePurchase: htmlButtonElement` - поле кнопки для совершения покупки.
+`listItems: htmlElement` - поле со всеми карточками в корзине.  
+`total: htmlElement` - поле с полной суммой.  
+`buttonMakePurchase: htmlButtonElement` - поле кнопки для совершения покупки. 
 
 Методы класса:  
-`set items(items: htmlElement[])` - метод для карточек в корзине.
-`set totalPrice(value: number)` - метод для полной суммы покупки.
+`set items(items: htmlElement[])` - метод для карточек в корзине. 
+`set totalPrice(value: number)` - метод для полной суммы покупки. 
 
 #### Класс BaseForm
-Базовый класс для форм OrderForm и ContactsForm.
+Базовый класс для форм OrderForm и ContactsForm.  
 
 Поля класса:  
-`formElement: HtmlFormElement` - поле с формой.
-`submitButton: HtmlButtonElement` - поле с кнопкой.
-`errors: HtmlELement` - поле с ошибками формы.
+`formElement: HtmlFormElement` - поле с формой. 
+`submitButton: HtmlButtonElement` - поле с кнопкой. 
+`errors: HtmlELement` - поле с ошибками формы.  
 
 Методы класса:  
-`set valid(value: boolean)` - метод для валидации формы.\
+`set valid(value: boolean)` - метод для валидации формы.  
 
 #### Класс OrderForm
 Класс формы для заказа.
 
 Поля класса:  
-`addressInput: HtmlInputElement` - поле инпутом адреса.
-`paymentButtons: htmlButtonElement[]` - поле с выбором оплаты.
+`addressInput: HtmlInputElement` - поле инпутом адреса. 
+`paymentButtons: htmlButtonElement[]` - поле с выбором оплаты.  
 
 Методы класса:  
-`set address(value: string)` - метод для адреса.
-`set payment(value: string)` - метод для выбора оплаты.
+`set address(value: string)` - метод для адреса.  
+`set payment(value: string)` - метод для выбора оплаты. 
 
 #### Класс ContactsForm
 Класс формы указания контактов для связи.
 
 Поля класса:  
-`emailInput: HtmlInputElement` - поле инпутом email.
-`phoneInput: HtmlInputElement` - поле инпутом номера.
+`emailInput: HtmlInputElement` - поле инпутом email.  
+`phoneInput: HtmlInputElement` - поле инпутом номера. 
 
 Методы класса:  
-`set email(value: string)` - метод для email.
-`set phone(value: string)` - метод для номера.
+`set email(value: string)` - метод для email. 
+`set phone(value: string)` - метод для номера.  

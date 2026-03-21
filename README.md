@@ -180,3 +180,127 @@ interface IBuyer {
 
 Методы класса:  
 `getProductList(): Promise<IProduct[]>` - выполняет  запрос и возвращает массив товаров.
+
+### Классы слоя Представления (View)
+
+#### Класс Header
+Компонент интерфейса отвечающий за изменения отрисовки корзины.
+
+Поля класса:  
+`basketButton: HtmlButtonElement` - кнопка для открытия корзины на начальной странице.
+`basketCounter: HtmlElement` - счетчик количества товаров в корзине на начальной странице.
+
+Методы класса:  
+`set counter(value: number)` - метод, который устанавливает счетчик количества товаров в корзине для отображения.
+
+#### Класс Gallery
+Компонент интерфейса отвечающий за отрисовку каталога карточек товаров.
+
+Поля класса:  
+`catalogElement: HtmlElement` - поле для элемента, где будут отрисовываться карточки товаров.
+
+Методы класса:  
+`set catalog(items: HtmlElement[])` - метод, который передает карточки товаров для отрисовки.
+
+#### Класс Modal
+Модальные окно для отображения других блоков.
+
+Поля класса:  
+`closeButton: HtmlButtonElement` - поле для кнопки закрытия модального окна.
+`modalContent: HtmlElement` - поле для содержимого модального окна.
+
+Методы класса:  
+`set content(item: HtmlElement)` - метод, который будет принимать контент.
+
+#### Класс OrderSuccess
+Контент с успешной покупкой, который будет передаваться для отображения в модальном окне.
+
+Поля класса:  
+`orderDescription: number` - поле со списанной суммой.
+`buttonNextPurchase: HtmlButtonElement` - поле кнопки для продолжения покупок.
+
+Методы класса:  
+`set total(value: number)` - метод полной суммы для списания.
+
+#### Класс Card
+Базовый класс для для OrderSuccess, PreviewCard и BasketCard.
+
+Поля класса:  
+`cardTitle: HtmlELement` - поле заголовка карточки.
+`cardPrice: htmlELement` - поле цены карточки.
+`cardImage: htmlImageELement` - поле изображения карточки.
+`cardCategory: htmlELement` - поле категории карточки.
+
+Методы класса:  
+`set title(value: string)` - метод заголовка карточки.
+`set price(value: string)` - метод цены карточки.
+`set image(value: string)` - метод изображения карточки.
+`set category(value: string)` - метод категории карточки.
+
+#### Класс CatalogCard
+Класс для каталога с карточками товара, который будет наследовать класс Card.
+
+#### Класс PreviewCard
+Класс для карточки товара при просмотра полной информации по ней, который будет наследовать класс Card.
+
+Поля класса:  
+`cardText: htmlELement` - поле с описанием карточки.
+`basketAddButton: htmlButtonElement` - поле кнопки для добавления в корзину.
+
+Методы класса:  
+`set text(value: string)` - метод для текста описания карточки.
+
+#### Класс BasketCard
+Класс для корзины с карточками, который будет наследовать класс Card.
+
+Поля класса:  
+`cardIndex: HTMLElement` - поле с индексом карточки в корзине.
+`basketButtonDelete: htmlButtonElement` - поле кнопки для удаления карточки из корзины.
+
+Методы класса:  
+`set index(value: string)` - метод для индекса карточки в корзине.
+
+#### Класс Basket
+Контент с корзиной товаров, который будет передаваться для отображения в модальном окне.
+
+Поля класса:  
+`listItems: htmlElement` - поле со всеми карточками в корзине.
+`total: htmlElement` - поле с полной суммой.
+`buttonMakePurchase: htmlButtonElement` - поле кнопки для совершения покупки.
+
+Методы класса:  
+`set items(items: htmlElement[])` - метод для карточек в корзине.
+`set totalPrice(value: number)` - метод для полной суммы покупки.
+
+#### Класс BaseForm
+Базовый класс для форм OrderForm и ContactsForm.
+
+Поля класса:  
+`formElement: HtmlFormElement` - поле с формой.
+`submitButton: HtmlButtonElement` - поле с кнопкой.
+`errors: HtmlELement` - поле с ошибками формы.
+
+Методы класса:  
+`set valid(value: boolean)` - метод для валидации формы.\
+
+#### Класс OrderForm
+Класс формы для заказа.
+
+Поля класса:  
+`addressInput: HtmlInputElement` - поле инпутом адреса.
+`paymentButtons: htmlButtonElement[]` - поле с выбором оплаты.
+
+Методы класса:  
+`set address(value: string)` - метод для адреса.
+`set payment(value: string)` - метод для выбора оплаты.
+
+#### Класс ContactsForm
+Класс формы указания контактов для связи.
+
+Поля класса:  
+`emailInput: HtmlInputElement` - поле инпутом email.
+`phoneInput: HtmlInputElement` - поле инпутом номера.
+
+Методы класса:  
+`set email(value: string)` - метод для email.
+`set phone(value: string)` - метод для номера.

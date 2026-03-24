@@ -59,69 +59,6 @@ async function fetchFromServer() {
   }
 }
 
-function testBuyerValidation() {
-  //Пустой покупатель
-  console.log('\n1. Пустой покупатель:');
-  buyer.clearBuyerData();
-  console.log('Данные:', buyer.getBuyerData());
-  console.log('Результат:', buyer.validateBuyerData());
-  
-  //Только email
-  console.log('\n2. Только email:');
-  buyer.setBuyerData({ email: 'test@example.com' });
-  console.log('Данные:', buyer.getBuyerData());
-  console.log('Результат:', buyer.validateBuyerData());
-  
-  //Email и телефон
-  console.log('\n3. Email и телефон:');
-  buyer.setBuyerData({ 
-    email: 'test@example.com',
-    phone: '+71234567890' 
-  });
-  console.log('Данные:', buyer.getBuyerData());
-  console.log('Результат:', buyer.validateBuyerData());
-  
-  //Email, телефон и адрес
-  console.log('\n4. Email, телефон и адрес:');
-  buyer.setBuyerData({ 
-    email: 'test@example.com',
-    phone: '+71234567890',
-    address: 'ул. Пушкина, д. 10'
-  });
-  console.log('Данные:', buyer.getBuyerData());
-  console.log('Результат:', buyer.validateBuyerData());
-  
-  //Все поля, кроме payment
-  console.log('\n5. Все поля, кроме payment:');
-  buyer.setBuyerData({ 
-    email: 'test@example.com',
-    phone: '+71234567890',
-    address: 'ул. Пушкина, д. 10'
-    // payment отсутствует
-  });
-  console.log('Данные:', buyer.getBuyerData());
-  console.log('Результат:', buyer.validateBuyerData());
-  
-  //Только payment
-  console.log('\n6. Только payment:');
-  buyer.clearBuyerData();
-  buyer.setBuyerData({ payment: 'card' });
-  console.log('Данные:', buyer.getBuyerData());
-  console.log('Результат:', buyer.validateBuyerData());
-  
-  //Все поля полностью
-  console.log('\n7. Все поля полностью (валидные данные):');
-  buyer.setBuyerData({
-    email: 'test@example.com',
-    phone: '+71234567890',
-    payment: 'card',
-    address: 'ул. Пушкина, д. 10'
-  });
-  console.log('Данные:', buyer.getBuyerData());
-  console.log('Результат:', buyer.validateBuyerData());
-  
-}
-
 async function main() {
   const serverProducts = await fetchFromServer();
   
@@ -139,8 +76,6 @@ async function main() {
     console.log('Общая стоимость:', cart.getTotalPrice());
     console.log('Количество товаров:', cart.getProductCount());
   }
-  
-  testBuyerValidation();
 }
 
 main().catch(error => {

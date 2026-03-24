@@ -20,8 +20,8 @@ export class Modal extends Component<IModal> {
             this.events.emit('modal:close');
         });
 
-        this.container.addEventListener('click', (evt) => {
-            if(evt.target === this.container) {
+        this.container.addEventListener('click', (e) => {
+            if(e.target === this.container) {
                 this.events.emit('modal:close');
             }
         });

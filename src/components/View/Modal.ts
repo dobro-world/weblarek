@@ -1,3 +1,4 @@
+// components/View/Modal.ts
 import { ensureElement } from "../../utils/utils";
 import { Component } from "../base/Component";
 import { IEvents } from "../base/Events";
@@ -17,15 +18,16 @@ export class Modal extends Component<IModal> {
         this.modalContent = ensureElement<HTMLElement>('.modal__content', this.container);
 
         this.closeButton.addEventListener('click', () => {
+            this.close();
             this.events.emit('modal:close');
         });
 
         this.container.addEventListener('click', (e) => {
             if(e.target === this.container) {
+                this.close();
                 this.events.emit('modal:close');
             }
         });
-        
     }
 
     set content(item: HTMLElement) {
@@ -38,5 +40,9 @@ export class Modal extends Component<IModal> {
 
     close() {
         this.container.classList.remove('modal_active');
+    }
+
+    get isOpen(): boolean {
+        return this.container.classList.contains('modal_active');
     }
 }

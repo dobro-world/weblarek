@@ -1,27 +1,25 @@
+// components/View/OrderSuccess.ts
 import { ensureElement } from "../../utils/utils";
-import { Component } from "../base/Component";
 import { IEvents } from "../base/Events";
 
-interface IOrderSuccess {
-    total: number;
-}
+export class OrderSuccess {
+    protected closeButton: HTMLButtonElement;
+    protected descriptionElement: HTMLElement;
 
-export class OrderSuccess extends Component<IOrderSuccess> {
-    protected orderTotalPrice: HTMLElement;
-    protected buttonNextPurchase: HTMLButtonElement;
-
-    constructor(protected events: IEvents, container: HTMLElement) {
-        super(container);
-
-        this.orderTotalPrice = ensureElement<HTMLElement>('.order-success__description', this.container);
-        this.buttonNextPurchase = ensureElement<HTMLButtonElement>('.order-success__close', this.container);
-
-        this.buttonNextPurchase.addEventListener('click', () => {
-            this.events.emit('order:success:close');
+    constructor(protected events: IEvents, protected container: HTMLElement) {
+        this.closeButton = ensureElement<HTMLButtonElement>('.order-success__close', this.container);
+        this.descriptionElement = ensureElement<HTMLElement>('.order-success__description', this.container);
+        
+        this.closeButton.addEventListener('click', () => {
+            this.events.emit('modal:close');
         });
     }
 
     set total(value: number) {
-        this.orderTotalPrice.textContent = `Списано ${value} синапсов`;
+        this.descriptionElement.textContent = `Списано ${value} синапсов`;
+    }
+
+    render(): HTMLElement {
+        return this.container;
     }
 }

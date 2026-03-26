@@ -1,7 +1,8 @@
+// components/View/Card.ts
 import { ensureElement } from "../../utils/utils";
 import { Component } from "../base/Component";
 import { IEvents } from "../base/Events";
-import { categoryMap } from "../../utils/constants";
+import { CDN_URL, categoryMap } from "../../utils/constants";
 
 type Category = keyof typeof categoryMap;
 
@@ -15,16 +16,16 @@ interface ICard {
 export class Card extends Component<ICard> {
     protected cardTitle: HTMLElement;
     protected cardPrice: HTMLElement;
-    protected cardImage: HTMLImageElement;
-    protected cardCategory: HTMLElement;
+    protected cardImage?: HTMLImageElement;
+    protected cardCategory?: HTMLElement;
 
     constructor(protected events: IEvents, container: HTMLElement) {
         super(container);
 
         this.cardTitle = ensureElement<HTMLElement>('.card__title', this.container);
         this.cardPrice = ensureElement<HTMLElement>('.card__price', this.container);
-        this.cardImage = ensureElement<HTMLImageElement>('.card__image', this.container);
-        this.cardCategory = ensureElement<HTMLElement>('.card__category', this.container);
+        this.cardImage = this.container.querySelector('.card__image') as HTMLImageElement;
+        this.cardCategory = this.container.querySelector('.card__category') as HTMLElement;
     }
 
     set title(value: string) {
@@ -36,18 +37,21 @@ export class Card extends Component<ICard> {
     }
 
     set image(value: string) {
-        this.cardImage.src = String(value);
+        if (this.cardImage && value) {
+            const cleanPath = value.startsWith('/') ? value.slice(1) : value;
+            this.cardImage.src = `${CDN_URL}/${cleanPath}`;
+        }
     }
 
     set category(value: Category) {
-        this.cardCategory.textContent = String(value);
+        if (!this.cardCategory) return;
+        this.cardCategory.textContent = value;
 
         Object.values(categoryMap).forEach(className => {
-            this.cardCategory.classList.remove(className);
-        })
+            this.cardCategory!.classList.remove(className);
+        });
 
-        const newClass = categoryMap[value];
-        this.cardCategory.classList.add(newClass);
+        this.cardCategory.classList.add(categoryMap[value]);
     }
 
     render(): HTMLElement {

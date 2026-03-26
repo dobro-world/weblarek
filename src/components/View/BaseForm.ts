@@ -18,11 +18,10 @@ export class BaseForm extends Component<IBaseForm> {
         this.formElement = this.container as HTMLFormElement;
         this.submitButton = ensureElement<HTMLButtonElement>('button[type=submit]', this.container);
         this.errors = ensureElement<HTMLElement>('.form__errors', this.container);
-
-         this.submitButton.addEventListener('click', (e) => {
+        
+        this.formElement.addEventListener('submit', (e) => {
             e.preventDefault();
-            this.events.emit('form:submit');
-         });
+        });
     }
 
     set valid(value: boolean) {
@@ -31,5 +30,18 @@ export class BaseForm extends Component<IBaseForm> {
 
     set errorText(value: string) {
         this.errors.textContent = value;
+        if (value) {
+            this.errors.style.display = 'block';
+        } else {
+            this.errors.style.display = 'none';
+        }
+    }
+    
+    showError(message: string) {
+        this.errorText = message;
+    }
+    
+    clearError() {
+        this.errorText = '';
     }
 }

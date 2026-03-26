@@ -1,3 +1,7 @@
+import { categoryMap } from '../utils/constants';
+
+type Category = keyof typeof categoryMap;
+
 export type ApiPostMethods = 'POST' | 'PUT' | 'DELETE';
 
 export interface IApi {
@@ -12,7 +16,7 @@ export interface IProduct {
   description: string;
   image: string;
   title: string;
-  category: string;
+  category: Category;
   price: number | null;
 }
 
@@ -41,4 +45,18 @@ export interface IOrder extends IBuyer {
 export interface IOrderResult {
   id: string;
   total: number;
+}
+
+export interface IOrderPaymentEvent {
+  value: TPayment;
+}
+
+export interface IOrderChangeEvent {
+  field?: string;
+  value: string;
+}
+
+export interface IFormChangeData {
+  field: keyof IBuyer;
+  value: string;
 }

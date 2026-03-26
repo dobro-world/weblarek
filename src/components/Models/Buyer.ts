@@ -1,4 +1,5 @@
 import { IBuyer, IValidationResult } from "../../types";
+import { IEvents } from "../base/Events";
 
 export class Buyer {
     private data: IBuyer = {
@@ -8,8 +9,12 @@ export class Buyer {
       address: ''
     }
 
+    constructor(private events: IEvents) {}
+
     setBuyerData(data: Partial<IBuyer>): void {
       this.data = {...this.data, ...data};
+
+      this.events.emit('buyer:changed', this.getBuyerData());
     }
 
     getBuyerData(): IBuyer {
@@ -23,6 +28,8 @@ export class Buyer {
             phone: '',
             address: ''
         };
+
+        this.events.emit('buyer:changed', this.getBuyerData());
     }
 
     validateBuyerData(): IValidationResult {

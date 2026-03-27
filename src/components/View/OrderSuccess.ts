@@ -1,4 +1,3 @@
-// components/View/OrderSuccess.ts
 import { ensureElement } from "../../utils/utils";
 import { IEvents } from "../base/Events";
 
@@ -11,7 +10,7 @@ export class OrderSuccess {
         this.descriptionElement = ensureElement<HTMLElement>('.order-success__description', this.container);
         
         this.closeButton.addEventListener('click', () => {
-            this.events.emit('modal:close');
+            this.events.emit('modal:closed');
         });
     }
 

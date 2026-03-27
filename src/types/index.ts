@@ -28,7 +28,6 @@ export interface IBuyer {
 }
 
 export interface IValidationResult {
-  isValid: boolean;
   errors: Partial<Record<keyof IBuyer, string>>;
 }
 

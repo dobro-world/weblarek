@@ -14,7 +14,7 @@ export class Buyer {
     setBuyerData(data: Partial<IBuyer>): void {
       this.data = {...this.data, ...data};
 
-      this.events.emit('buyer:changed', this.getBuyerData());
+      this.events.emit('buyer:changed');
     }
 
     getBuyerData(): IBuyer {
@@ -29,15 +29,25 @@ export class Buyer {
             address: ''
         };
 
-        this.events.emit('buyer:changed', this.getBuyerData());
+        this.events.emit('buyer:changed');
     }
 
-    validateBuyerData(): IValidationResult {
+    validateOrderStep(): IValidationResult {
         const errors: Partial<Record<keyof IBuyer, string>> = {};
 
         if (!this.data.payment) {
             errors.payment = 'Способ оплаты не выбран';
         }
+
+        if (!this.data.address) {
+            errors.address = 'Адрес не может быть пустым';
+        }
+
+        return { errors };
+    }
+
+    validateContactsStep(): IValidationResult {
+        const errors: Partial<Record<keyof IBuyer, string>> = {};
 
         if (!this.data.email) {
             errors.email = 'Email не может быть пустым';
@@ -47,13 +57,6 @@ export class Buyer {
             errors.phone = 'Телефон не может быть пустым';
         }
 
-        if (!this.data.address) {
-            errors.address = 'Адрес не может быть пустым';
-        }
-
-        return {
-            isValid: Object.keys(errors).length === 0,
-            errors
-        };
+        return { errors };
     }
 }

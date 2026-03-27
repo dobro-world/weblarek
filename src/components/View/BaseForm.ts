@@ -21,6 +21,17 @@ export class BaseForm extends Component<IBaseForm> {
         
         this.formElement.addEventListener('submit', (e) => {
             e.preventDefault();
+
+            const formName = this.formElement.name;
+
+            if (formName === 'order') {
+                this.events.emit('order:next');
+                return;
+            }
+
+            if (formName === 'contacts') {
+                this.events.emit('form:submit');
+            }
         });
     }
 
@@ -31,17 +42,14 @@ export class BaseForm extends Component<IBaseForm> {
     set errorText(value: string) {
         this.errors.textContent = value;
         if (value) {
-            this.errors.style.display = 'block';
+            this.errors.classList.add('form__errors_visible');
         } else {
-            this.errors.style.display = 'none';
+            this.errors.classList.remove('form__errors_visible');
         }
     }
-    
-    showError(message: string) {
-        this.errorText = message;
-    }
-    
-    clearError() {
+
+    clear() {
+        this.formElement.reset();
         this.errorText = '';
     }
 }
